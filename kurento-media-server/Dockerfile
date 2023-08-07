@@ -101,6 +101,9 @@ RUN apt-get $APT_ARGS update && apt-get $APT_ARGS install --no-install-recommend
         nano \
  && rm -rf /var/lib/apt/lists/*
 
+# Birdseye - disable IPv6
+RUN mkdir ~/.gnupg && echo "disable-ipv6" >> ~/.gnupg/dirmngr.conf
+
 # Add Kurento Apt package repository.
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 234821A61B67740F89BFD669FC8A16625AFA7A83 \
  && echo "deb [arch=amd64] http://ubuntu.openvidu.io/${KMS_VERSION} ${UBUNTU_CODENAME} kms6" >/etc/apt/sources.list.d/kurento.list
