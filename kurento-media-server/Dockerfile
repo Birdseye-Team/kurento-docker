@@ -154,7 +154,7 @@ RUN apt-get $APT_ARGS update && apt-get $APT_ARGS install --no-install-recommend
 # Install Jemalloc memory allocator.
 
 ### Birdseye ===
-RUN apt-get $APT_ARGS update && apt-get $APT_ARGS install libjemalloc-dev --yes
+RUN apt-get $APT_ARGS update && apt-get $APT_ARGS install libjemalloc-dev libjemalloc1 --yes
 ### Birdseye ===
 
 # Expose default Kurento RPC control port.

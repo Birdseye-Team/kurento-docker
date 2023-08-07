@@ -141,11 +141,16 @@ if [ ! -t 1 ]; then
     export GST_DEBUG_NO_COLOR=1
 fi
 
+### Birdseye ===
 # Find the full path to the Jemalloc library file.
 JEMALLOC_PATH="$(find /usr/lib/x86_64-linux-gnu/ | grep 'libjemalloc\.so\.[[:digit:]]' | head -n 1)"
 
 # Pass these settings string to Jemalloc.
-JEMALLOC_CONF="abort_conf:true,confirm_conf:true,background_thread:true,metadata_thp:always"
+JEMALLOC_CONF="stats_print:true"
+
+# This was in the original Dockerfile from jemalloc branch, but these parameters didn't work
+# JEMALLOC_CONF="abort_conf:true,confirm_conf:true,background_thread:true,metadata_thp:always"
+### Birdseye ===
 
 # Run Kurento Media Server, changing to requested User/Group ID (if any).
 function run_kurento {
@@ -172,7 +177,7 @@ function run_kurento {
         /usr/bin/kurento-media-server "$@"
     else
         echo "[Docker entrypoint] Start Kurento Media Server, UID: $RUN_UID"
-
+		
         # `exec` replaces the current shell process, running Kurento as PID 1.
         # `env` sets environment variables for the process.
         exec env \
